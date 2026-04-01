@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
-import { env } from "../config/env";
-import { supabaseAdmin } from "./supabase";
+import { env } from "../config/env.js";
+import { supabaseAdmin } from "./supabase.js";
 
 const smtpTransport = env.smtpHost
   ? nodemailer.createTransport({

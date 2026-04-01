@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
-import { prisma } from "../db/prisma";
+import { prisma } from "../db/prisma.js";
 
 type DashboardRequest = {
   userId?: string;

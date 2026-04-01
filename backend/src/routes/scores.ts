@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { prisma } from "../db/prisma";
+import { prisma } from "../db/prisma.js";
 
 type ScoreBody = {
   userId: string;

@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
-import { env } from "../config/env";
-import { prisma } from "../db/prisma";
-import { supabaseAdmin } from "../services/supabase";
-import { notifyWinner, notifyWinnerPaid, notifyWinnerVerified } from "../services/notifications";
+import { env } from "../config/env.js";
+import { prisma } from "../db/prisma.js";
+import { supabaseAdmin } from "../services/supabase.js";
+import { notifyWinner, notifyWinnerPaid, notifyWinnerVerified } from "../services/notifications.js";
 
 const toNumber = (value: Prisma.Decimal | number | null) => {
   if (value === null) return null;

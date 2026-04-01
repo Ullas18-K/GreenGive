@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { prisma } from "../db/prisma";
-import { notifyAdminProofSubmitted, notifyProofReceived } from "../services/notifications";
+import { prisma } from "../db/prisma.js";
+import { notifyAdminProofSubmitted, notifyProofReceived } from "../services/notifications.js";
 
 export const updateWinnerProof = async (req: Request, res: Response) => {
   const { id } = req.params;

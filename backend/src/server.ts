@@ -1,12 +1,12 @@
 import express from "express";
 import cors from "cors";
-import { env } from "./config/env";
-import { createCheckoutSession, handleStripeWebhook, updateCharitySelection } from "./routes/billing";
-import { listCharities, getCharityById } from "./routes/charities";
-import { listPublishedDraws } from "./routes/draws";
-import { createScore } from "./routes/scores";
-import { getDashboardSummary } from "./routes/dashboard";
-import { updateWinnerProof } from "./routes/winners";
+import { env } from "./config/env.js";
+import { createCheckoutSession, handleStripeWebhook, updateCharitySelection } from "./routes/billing.js";
+import { listCharities, getCharityById } from "./routes/charities.js";
+import { listPublishedDraws } from "./routes/draws.js";
+import { createScore } from "./routes/scores.js";
+import { getDashboardSummary } from "./routes/dashboard.js";
+import { updateWinnerProof } from "./routes/winners.js";
 import {
   createAdminCharity,
   createAdminDraw,
@@ -19,9 +19,9 @@ import {
   updateAdminCharity,
   updateAdminDraw,
   updateAdminWinner,
-} from "./routes/admin";
-import { healthHandler } from "./routes/health";
-import { errorHandler } from "./middleware/errorHandler";
+} from "./routes/admin.js";
+import { healthHandler } from "./routes/health.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 

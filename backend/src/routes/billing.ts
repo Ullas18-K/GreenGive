@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
 import Stripe from "stripe";
 import { Prisma } from "@prisma/client";
-import { env } from "../config/env";
-import { prisma } from "../db/prisma";
-import { getOrCreateCustomer, priceIds, stripe, type PlanKey } from "../services/stripe";
-import { notifySubscriptionActive, notifySubscriptionCanceled, notifyWelcome } from "../services/notifications";
+import { env } from "../config/env.js";
+import { prisma } from "../db/prisma.js";
+import { getOrCreateCustomer, priceIds, stripe, type PlanKey } from "../services/stripe.js";
+import { notifySubscriptionActive, notifySubscriptionCanceled, notifyWelcome } from "../services/notifications.js";
 
 type CheckoutBody = {
   userId: string;
