@@ -98,6 +98,15 @@ Set these in backend/.env:
 
 ## 3) Environment files
 
+If you accidentally committed local env files, untrack them (they stay on disk):
+
+```
+git rm --cached backend/.env
+git rm --cached frontend/.env
+git add .gitignore
+git commit -m "Stop tracking local env files"
+```
+
 ### frontend/.env
 ```
 VITE_API_BASE_URL=https://your-api-domain.com/api
