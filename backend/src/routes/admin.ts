@@ -106,7 +106,7 @@ export const createAdminCharity = async (req: Request, res: Response) => {
       imageUrl: imageUrl ?? null,
       causeType: causeType ?? null,
       goalAmount: Number.isFinite(goalAmount) ? new Prisma.Decimal(goalAmount as number) : null,
-      upcomingEvents: upcomingEvents ?? null,
+      upcomingEvents: (upcomingEvents as Prisma.InputJsonValue) ?? null,
     },
   });
 
@@ -136,7 +136,7 @@ export const updateAdminCharity = async (req: Request, res: Response) => {
       imageUrl,
       causeType,
       goalAmount: Number.isFinite(goalAmount) ? new Prisma.Decimal(goalAmount as number) : undefined,
-      upcomingEvents,
+      upcomingEvents: upcomingEvents !== undefined ? (upcomingEvents as Prisma.InputJsonValue) : undefined,
     },
   });
 

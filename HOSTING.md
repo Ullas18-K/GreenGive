@@ -29,8 +29,10 @@ This guide deploys:
 1. Create a new Render Web Service.
 2. Connect the GitHub repo and choose the root.
 3. Build command:
-   - npm install --prefix backend && npm run --prefix backend prisma:generate && npm run --prefix backend prisma:migrate && npm run --prefix backend build
-4. Start command:
+   - npm install --prefix backend && npm run --prefix backend prisma:generate && npm run --prefix backend build
+4. Post-Deploy Command (Settings -> Deploy -> Post-Deploy Command):
+   - npm run --prefix backend prisma:migrate
+5. Start command:
    - npm run --prefix backend start
 5. Add environment variables (Settings -> Environment):
    - PORT=3000
