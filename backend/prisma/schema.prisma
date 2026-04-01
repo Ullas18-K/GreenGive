@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  user
+}
+
+model UserRole {
+  userId    String   @id @map("user_id") @db.Uuid
+  role      Role     @default(user)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("user_roles")
+}
+
+model Subscription {
+  userId               String   @id @map("user_id") @db.Uuid
+  plan                 String
+  amount               Decimal  @db.Decimal(10, 2)
+  charityId            String?  @map("charity_id")
+  charityName          String?  @map("charity_name")
+  charityPercent       Int?     @map("charity_percent") @db.SmallInt
+  charityChangedAt     DateTime? @map("charity_changed_at") @db.Timestamptz(6)
+  stripeSubscriptionId String?  @map("stripe_subscription_id")
+  status               String
+  renewalDate          DateTime? @map("renewal_date") @db.Timestamptz(6)
+  createdAt            DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt            DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("subscriptions")
+}
+
+model Charity {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name               String
+  description        String?
+  fullDescription    String?  @map("full_description")
+  imageUrl           String?  @map("image_url")
+  causeType          String?  @map("cause_type")
+  upcomingEvents     Json?    @map("upcoming_events")
+  totalContributions Decimal  @default(0) @map("total_contributions") @db.Decimal(12, 2)
+  goalAmount         Decimal? @map("goal_amount") @db.Decimal(12, 2)
+  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("charities")
+}
+
+model Score {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId     String   @map("user_id") @db.Uuid
+  scoreValue Int      @map("score_value")
+  scoreDate  DateTime @map("score_date") @db.Date
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([userId])
+  @@map("scores")
+}
+
+model Draw {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  drawDate     DateTime @map("draw_date") @db.Date
+  drawNumbers  Int[]    @map("draw_numbers")
+  drawType     String   @map("draw_type")
+  jackpotAmount Decimal @map("jackpot_amount") @db.Decimal(12, 2)
+  published    Boolean  @default(false)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("draws")
+}
+
+model DrawEntry {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  drawId     String   @map("draw_id") @db.Uuid
+  userId     String   @map("user_id") @db.Uuid
+  userScores Int[]    @map("user_scores")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([drawId])
+  @@index([userId])
+  @@map("draw_entries")
+}
+
+model Winner {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  drawId      String   @map("draw_id") @db.Uuid
+  userId      String   @map("user_id") @db.Uuid
+  matchType   String   @map("match_type")
+  prizeAmount Decimal  @map("prize_amount") @db.Decimal(12, 2)
+  proofUrl    String?  @map("proof_url")
+  verified    Boolean  @default(false)
+  paid        Boolean  @default(false)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([drawId])
+  @@index([userId])
+  @@map("winners")
+}
